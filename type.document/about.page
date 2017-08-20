@@ -1,0 +1,29 @@
+---
+title: Document Type
+description: Add type “Document” support.
+author: Taufik Nurrohman
+type: Markdown
+link: http://mecha-cms.com
+version: 2.0.0
+...
+
+Any pages contain `type` property with value `Document` or any pages without `type` property but contains `<html>` tags in the `content` will replace current HTML document with the current page content.
+
+~~~ .yaml
+---
+type: Document
+...
+
+<!DOCTYPE html>
+<html dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Document Title</title>
+  </head>
+  <body>
+    <p>Document content.</p>
+  </body>
+</html>
+~~~
+
+<!-- block:donate -->
