@@ -1,17 +1,16 @@
 <?php
 
-function fn_type_document($input) {
+function fn_type_document($yield) {
     global $url;
     $d = PAGE . DS . $url->path;
     if (!$f = File::exist([
-        $d . '.draft',
         $d . '.page',
         $d . '.archive'
     ])) {
-        return $input;
+        return $yield;
     }
     if (!$content = Page::apart($f, 'content')) {
-        return $input;
+        return $yield;
     }
     if (($type = Page::apart($f, 'type', false)) === false) {
         $s = strtolower($content);
@@ -22,7 +21,10 @@ function fn_type_document($input) {
             $type = 'Document';
         }
     }
-    return $type === 'Document' ? $content : $input;
+    if ($status = Page::apart($f, 'status')) {
+        HTTP::status($status);
+    }
+    return $type === 'Document' ? $content : $yield;
 }
 
-Hook::set('shield.input', 'fn_type_document', 2);
+Hook::set('shield.yield', 'fn_type_document', 2);
