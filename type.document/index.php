@@ -1,30 +1,30 @@
-<?php
+<?php namespace fn\type;
 
-function fn_type_document($yield) {
+function document($yield) {
     global $url;
-    $d = PAGE . DS . $url->path;
-    if (!$f = File::exist([
-        $d . '.page',
-        $d . '.archive'
+    $path = PAGE . DS . $url->path(DS);
+    if (!$f = \File::exist([
+        $path . '.page',
+        $path . '.archive'
     ])) {
         return $yield;
     }
-    if (!$content = Page::apart($f, 'content')) {
+    if (!$content = \Page::apart($f, 'content')) {
         return $yield;
     }
-    if (($type = Page::apart($f, 'type', false)) === false) {
-        $s = strtolower($content);
-        if (substr($s, -7) === '</html>' && (
-            strpos($s, '<html>') !== false ||
-            strpos($s, '<html ') !== false
+    if (!$type = \Page::apart($f, 'type')) {
+        $test = strtolower($content);
+        if (substr($test, -7) === '</html>' && (
+            strpos($test, '<html>') !== false ||
+            strpos($test, '<html ') !== false
         )) {
             $type = 'Document';
         }
     }
-    if ($status = Page::apart($f, 'status')) {
-        HTTP::status($status);
+    if ($status = \Page::apart($f, 'status')) {
+        \HTTP::status($status);
     }
     return $type === 'Document' ? $content : $yield;
 }
 
-Hook::set('shield.yield', 'fn_type_document', 2);
+\Hook::set('shield.yield', __NAMESPACE__ . "\\document", 2);
