@@ -13,10 +13,10 @@ function document($yield) {
         return $yield;
     }
     if (!$type = \Page::apart($f, 'type')) {
-        $test = strtolower($content);
-        if (substr($test, -7) === '</html>' && (
-            strpos($test, '<html>') !== false ||
-            strpos($test, '<html ') !== false
+        $test = \strtolower($content);
+        if (\substr($test, -7) === '</html>' && (
+            \strpos($test, '<html>') !== false ||
+            \strpos($test, '<html ') !== false
         )) {
             $type = 'Document';
         }

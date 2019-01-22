@@ -3,7 +3,7 @@ title: Type: Document
 description: Add type “Document” support.
 author: Taufik Nurrohman
 type: Markdown
-version: 2.2.0
+version: 2.2.1
 ...
 
 Any pages contain `type` property with value `Document` or any pages without `type` property but contains `<html>` tags in the `content` will replace current HTML document with the current page content.
