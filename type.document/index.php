@@ -9,6 +9,7 @@ function document($yield) {
     ])) {
         return $yield;
     }
+    $f = file_get_contents($f);
     if (!$content = \Page::apart($f, 'content')) {
         return $yield;
     }
@@ -27,4 +28,4 @@ function document($yield) {
     return $type === 'Document' ? $content : $yield;
 }
 
-\Hook::set('shield.yield', __NAMESPACE__ . "\\document", 2);
+\Hook::set('content', __NAMESPACE__ . "\\document", 2);
