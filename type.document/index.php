@@ -1,4 +1,4 @@
-<?php namespace fn\type;
+<?php namespace _\type;
 
 function document($yield) {
     global $url;
