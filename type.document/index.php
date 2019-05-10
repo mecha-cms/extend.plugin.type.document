@@ -1,17 +1,16 @@
 <?php namespace _\type;
 
-function document($yield) {
-    global $url;
-    $path = PAGE . DS . $url->path(DS);
+function document($v) {
+    $path = PAGE . $GLOBALS['URL']['path'];
     if (!$f = \File::exist([
         $path . '.page',
         $path . '.archive'
     ])) {
-        return $yield;
+        return $v;
     }
     $f = file_get_contents($f);
     if (!$content = \Page::apart($f, 'content')) {
-        return $yield;
+        return $v;
     }
     if (!$type = \Page::apart($f, 'type')) {
         $test = \strtolower($content);
@@ -25,7 +24,7 @@ function document($yield) {
     if ($status = \Page::apart($f, 'status')) {
         \HTTP::status($status);
     }
-    return $type === 'Document' ? $content : $yield;
+    return $type === 'Document' ? $content : $v;
 }
 
 \Hook::set('content', __NAMESPACE__ . "\\document", 2);
